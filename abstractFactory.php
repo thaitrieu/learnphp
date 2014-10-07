@@ -21,6 +21,32 @@ class MegaApptEncoder extends ApptEncoder {
     }
 }
 
+/*
+ *
+ */
+
+abstract class TtdEncoder {
+    abstract function encode();
+}
+
+
+
+class BloggsTtdEncoder extends TtdEncoder {
+    function encode() {
+        return "Appointment data encode in BloggsCal format Ny\n";
+    }
+}
+
+class MegaTtdEncoder extends TtdEncoder {
+    function encode() {
+        return "Appointment data encode in MegaCal format Ny\n";
+    }
+}
+
+/*
+ *
+ */
+
 abstract class CommsManager {
     abstract function getHeaderText();
     abstract function getApptEncoder();
@@ -39,13 +65,17 @@ class BloggsCommsManager extends CommsManager {
         return new BloggsApptEncoder();
     }
 
+    function getTtdEncoder() {
+        return new BloggsTtdEncoder();
+    }
+
     function getFooterText() {
         return "BloggsCal footer\n";
     }
 }
 
 $mgr = new BloggsCommsManager();
-$mgr2 = new MegaApptEncoder();
-$encoder = $mgr2->encode();
+$encoder = $mgr->getTtdEncoder();
+$message = $encoder->encode();
 
-var_dump($encoder);
+var_dump($message);
