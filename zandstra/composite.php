@@ -6,10 +6,8 @@
  * Time: 11:32
  */
 abstract class Unit {
-    function getComposite() {
-        return null;
-    }
-
+    abstract function addUnit(Unit $unit);
+    abstract function removeUnit(Unit $unit);
     abstract function bombardStrength();
 }
 
@@ -35,28 +33,22 @@ abstract class CompositeUnit extends Unit {
         $this->units = array_udiff($this->units, array($unit),
             function($a, $b) { return ($a === $b) ? 0 : 1; } );
     }
-
-
 }
 
-//class UnitScript {
-//    static function joinExisting(Unit $newUnit, Unit $occupyingUnit){
-//
-//        $comp;
-//
-//        if(!is_null($comp = $occupyingUnit->getComposite())){
-//            $comp->addUnit($newUnit);
-//        } else {
-//            $comp = new Army();
-//            $comp->addUnit($occupyingUnit);
-//            $comp->addUnit($newUnit);
-//        }
-//        return $comp;
-//    }
-//}
-
-class Army extends Unit {
+class Army extends CompositeUnit {
     private $units = [];
+
+    function addUnit(Unit $unit) {
+        if(in_array($unit, $this->units, true)){
+            return;
+        }
+        $this->units[] = $unit;
+    }
+
+    function removeUnit(Unit $unit) {
+        $this->units = array_udiff($this->units, array($unit),
+            function($a, $b) {return ($a === $b) ? 0 : 1;});
+    }
 
     function bombardStrength(){
         $ret = 0;
@@ -68,9 +60,15 @@ class Army extends Unit {
     }
 }
 
-class UnitException extends  Exception {}
-
 class Archer extends Unit {
+
+    function addUnit(Unit $unit){
+        throw new Exception('fejl');
+    }
+
+    function removeUnit(Unit $unit){
+        throw new Exception('fejl');
+    }
 
     function bombardStrength(){
         return 4;
@@ -78,6 +76,14 @@ class Archer extends Unit {
 }
 
 class LaserCannonUnit extends Unit {
+
+    function addUnit(Unit $unit){
+        throw new Exception('fejl');
+    }
+
+    function removeUnit(Unit $unit){
+        throw new Exception('fejl');
+    }
 
     function bombardStrength(){
         return 10;
