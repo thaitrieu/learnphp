@@ -13,7 +13,7 @@ abstract class ProcessRequest {
 
 class MainProcess extends ProcessRequest {
     function process(RequestHelper $req) {
-        print __CLASS__.": doing something usefull with request\n";
+        echo __CLASS__.": doing something usefull with request\n";
     }
 }
 
