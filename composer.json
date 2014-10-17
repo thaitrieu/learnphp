@@ -1,0 +1,10 @@
+{
+    "name": "tt/learnphp",
+    "authors": [
+        {
+            "name": "thaitrieu",
+            "email": "thai@outlook.dk"
+        }
+    ],
+    "require": {}
+}
